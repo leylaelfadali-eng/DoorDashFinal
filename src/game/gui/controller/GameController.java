@@ -917,4 +917,5 @@ public class GameController {
         if(cell instanceof ContaminationSock) return Color.web("#B53A3A");
         return Color.web("#2E4A6A");
     }
+
 }
