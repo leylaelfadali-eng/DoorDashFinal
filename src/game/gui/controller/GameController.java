@@ -34,7 +34,6 @@ import javafx.util.Duration;
 
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -416,7 +415,7 @@ public class GameController {
                 helpSection("CONVEYORS",    "Move you FORWARD automatically."),
                 helpSection("CONTAM. SOCK", "Move BACKWARD and lose 100 energy!"),
                 helpSection("MONSTERS",     "DASHER: 2x speed\nDYNAMO: doubles all energy changes\nMULTITASKER: slower but +energy\nSCHEMER: +10 bonus to all changes"),
-                helpSection("CHEATS",       "W = player jumps to cell 100 (+ 1500 energy)\nE = +300 energy\nL = opponent jumps to cell 100\nSPACE = roll the dice")
+                helpSection("CHEATS",       "W = player jumps to cell 100 (+ 1500 energy)\nE = +300 energy\nL = opponent jumps to cell 100\nSPACE key is disabled")
         );
 
         scroll.setContent(body);

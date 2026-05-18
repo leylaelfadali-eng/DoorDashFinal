@@ -15,7 +15,7 @@
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="game.gui.controller.GameController">
 
-    <!-- TOP: turn indicator + status + event -->
+
     <top>
         <VBox style="-fx-background-color: #0D1B2A;" BorderPane.alignment="CENTER">
             <HBox alignment="CENTER" spacing="20" style="-fx-padding: 7 20;">
@@ -33,34 +33,32 @@
         </VBox>
     </top>
 
-    <!-- LEFT: player panel (dice added programmatically) -->
+
     <left>
         <VBox fx:id="playerPanel" prefWidth="220.0"
               style="-fx-background-color: #142236; -fx-padding: 10; -fx-spacing: 6;"
               BorderPane.alignment="CENTER" />
     </left>
 
-    <!-- CENTER: game board -->
+
     <center>
         <StackPane fx:id="boardContainer"
                    style="-fx-background-color: #1E3248;"
                    BorderPane.alignment="CENTER" />
     </center>
 
-    <!-- RIGHT: opponent panel (card back added programmatically) -->
     <right>
         <VBox fx:id="opponentPanel" prefWidth="220.0"
               style="-fx-background-color: #142236; -fx-padding: 10; -fx-spacing: 6;"
               BorderPane.alignment="CENTER" />
     </right>
 
-    <!-- BOTTOM: powerup centred, legend right, menu button far right -->
     <bottom>
         <HBox alignment="CENTER_LEFT" spacing="10"
               style="-fx-background-color: #0D1B2A; -fx-padding: 10 15;"
               BorderPane.alignment="CENTER">
 
-            <!-- Push powerup to centre -->
+
             <Region HBox.hgrow="ALWAYS" />
 
             <Button fx:id="powerupButton" text="USE POWERUP (500)"
@@ -71,15 +69,15 @@
 
             <Region HBox.hgrow="ALWAYS" />
 
-            <!-- Legend -->
+
             <VBox spacing="3" alignment="CENTER_RIGHT">
                 <Label text="P = You    O = Opponent    Win: cell 100 + 1000 energy"
                        style="-fx-text-fill: #CCCCEE; -fx-font-size: 10px;" />
-                <Label text="Cheats: W = player wins   E = +energy   L = opponent wins   SPACE = roll"
+                <Label text="Cheats: W = player wins   E = +energy   L = opponent wins"
                        style="-fx-text-fill: #4A5A6A; -fx-font-size: 9px;" />
             </VBox>
 
-            <!-- Menu button — bottom right -->
+
             <Button fx:id="menuButton" text="☰  MENU"
                     prefWidth="110" prefHeight="40"
                     style="-fx-background-color: #1A2E4A; -fx-text-fill: #FFD700;
