@@ -2,9 +2,9 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
@@ -15,73 +15,78 @@
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="game.gui.controller.GameController">
 
+    <!-- TOP: turn indicator + status + event -->
     <top>
-        <HBox alignment="CENTER" spacing="20"
-              style="-fx-background-color: #0D1B2A; -fx-padding: 8 20;"
-              BorderPane.alignment="CENTER">
-            <Label fx:id="turnIndicator" text="YOUR TURN"
-                   style="-fx-text-fill: #FFD700; -fx-font-size: 14px; -fx-font-weight: bold;" />
-            <Label text="|" style="-fx-text-fill: #2E4A7A; -fx-font-size: 14px;" />
-            <Label fx:id="statusLabel" text="Roll the dice!"
-                   style="-fx-text-fill: #CCCCEE; -fx-font-size: 12px;" />
-        </HBox>
+        <VBox style="-fx-background-color: #0D1B2A;" BorderPane.alignment="CENTER">
+            <HBox alignment="CENTER" spacing="20" style="-fx-padding: 7 20;">
+                <Label fx:id="turnIndicator" text="YOUR TURN"
+                       style="-fx-text-fill: #FFD700; -fx-font-size: 18px; -fx-font-weight: bold;" />
+                <Label text="|" style="-fx-text-fill: #2E4A7A; -fx-font-size: 18px;" />
+                <Label fx:id="statusLabel" text="Click the dice to roll!"
+                       style="-fx-text-fill: #CCCCEE; -fx-font-size: 14px;" />
+            </HBox>
+            <HBox alignment="CENTER" style="-fx-padding: 0 20 5 20;">
+                <Label fx:id="eventLabel" text=""
+                       style="-fx-text-fill: #FFD700; -fx-font-size: 12px; -fx-font-style: italic;"
+                       maxWidth="900" />
+            </HBox>
+        </VBox>
     </top>
 
+    <!-- LEFT: player panel (dice added programmatically) -->
     <left>
-        <VBox fx:id="playerPanel" prefWidth="210.0"
-              style="-fx-background-color: #142236; -fx-padding: 12; -fx-spacing: 8;"
+        <VBox fx:id="playerPanel" prefWidth="220.0"
+              style="-fx-background-color: #142236; -fx-padding: 10; -fx-spacing: 6;"
               BorderPane.alignment="CENTER" />
     </left>
 
+    <!-- CENTER: game board -->
     <center>
         <StackPane fx:id="boardContainer"
-                   style="-fx-background-color: #1E3248; -fx-padding: 5;"
+                   style="-fx-background-color: #1E3248;"
                    BorderPane.alignment="CENTER" />
     </center>
 
+    <!-- RIGHT: opponent panel (card back added programmatically) -->
     <right>
-        <VBox fx:id="opponentPanel" prefWidth="210.0"
-              style="-fx-background-color: #142236; -fx-padding: 12; -fx-spacing: 8;"
+        <VBox fx:id="opponentPanel" prefWidth="220.0"
+              style="-fx-background-color: #142236; -fx-padding: 10; -fx-spacing: 6;"
               BorderPane.alignment="CENTER" />
     </right>
 
+    <!-- BOTTOM: powerup centred, legend right, menu button far right -->
     <bottom>
-        <HBox spacing="15" alignment="CENTER_LEFT"
+        <HBox alignment="CENTER_LEFT" spacing="10"
               style="-fx-background-color: #0D1B2A; -fx-padding: 10 15;"
               BorderPane.alignment="CENTER">
 
-            <!-- Dice display -->
-            <VBox spacing="3" alignment="CENTER" minWidth="70">
-                <Label fx:id="diceLabel" text="[ ? ]"
-                       style="-fx-text-fill: #FFD700; -fx-font-size: 26px; -fx-font-weight: bold;" />
-                <Label text="DICE" style="-fx-text-fill: #CCCCEE; -fx-font-size: 9px;" />
-            </VBox>
+            <!-- Push powerup to centre -->
+            <Region HBox.hgrow="ALWAYS" />
 
-            <!-- Action buttons -->
-            <VBox spacing="8" alignment="CENTER">
-                <Button fx:id="rollButton" text="ROLL DICE"
-                        prefWidth="165.0" prefHeight="36.0"
-                        style="-fx-background-color: #2E4A7A; -fx-text-fill: #FFD700; -fx-font-size: 13px; -fx-font-weight: bold; -fx-background-radius: 8; -fx-cursor: hand;" />
-                <Button fx:id="powerupButton" text="USE POWERUP (500)"
-                        prefWidth="165.0" prefHeight="36.0"
-                        style="-fx-background-color: #7A4A1E; -fx-text-fill: #FFD700; -fx-font-size: 11px; -fx-font-weight: bold; -fx-background-radius: 8; -fx-cursor: hand;" />
-            </VBox>
+            <Button fx:id="powerupButton" text="USE POWERUP (500)"
+                    prefWidth="185.0" prefHeight="40.0"
+                    style="-fx-background-color: #7A4A1E; -fx-text-fill: #FFD700;
+                        -fx-font-size: 12px; -fx-font-weight: bold;
+                        -fx-background-radius: 8; -fx-cursor: hand;" />
+
+            <Region HBox.hgrow="ALWAYS" />
 
             <!-- Legend -->
-            <VBox spacing="5" alignment="CENTER_LEFT" minWidth="120">
-                <Label text="LEGEND" style="-fx-text-fill: #FFD700; -fx-font-size: 9px; -fx-font-weight: bold;" />
-                <Label text="P = You    O = Opponent" style="-fx-text-fill: #CCCCEE; -fx-font-size: 9px;" />
-                <Label text="Blue border = SCARER door" style="-fx-text-fill: #CCCCEE; -fx-font-size: 9px;" />
-                <Label text="Brown border = LAUGHER door" style="-fx-text-fill: #CCCCEE; -fx-font-size: 9px;" />
+            <VBox spacing="3" alignment="CENTER_RIGHT">
+                <Label text="P = You    O = Opponent    Win: cell 100 + 1000 energy"
+                       style="-fx-text-fill: #CCCCEE; -fx-font-size: 10px;" />
+                <Label text="Cheats: W = player wins   E = +energy   L = opponent wins   SPACE = roll"
+                       style="-fx-text-fill: #4A5A6A; -fx-font-size: 9px;" />
             </VBox>
 
-            <!-- Event log -->
-            <ScrollPane fx:id="eventLogScroll" prefHeight="95.0" HBox.hgrow="ALWAYS"
-                        fitToWidth="true" pannable="false"
-                        style="-fx-background: #0D1B2A; -fx-background-color: #0D1B2A; -fx-border-color: #2E4A7A; -fx-border-radius: 6; -fx-border-width: 1;">
-                <VBox fx:id="eventLog" spacing="2"
-                      style="-fx-padding: 5; -fx-background-color: #0D1B2A;" />
-            </ScrollPane>
+            <!-- Menu button — bottom right -->
+            <Button fx:id="menuButton" text="☰  MENU"
+                    prefWidth="110" prefHeight="40"
+                    style="-fx-background-color: #1A2E4A; -fx-text-fill: #FFD700;
+                        -fx-font-size: 12px; -fx-font-weight: bold;
+                        -fx-background-radius: 8;
+                        -fx-border-color: #2E4A7A; -fx-border-width: 1;
+                        -fx-border-radius: 8; -fx-cursor: hand;" />
 
         </HBox>
     </bottom>
