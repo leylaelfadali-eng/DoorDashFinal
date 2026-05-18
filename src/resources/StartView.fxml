@@ -2,27 +2,128 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #1E3248;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="game.gui.controller.StartController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity"
+            minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="720.0" prefWidth="1280.0"
+            style="-fx-background-color: #1E3248;"
+            xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="game.gui.controller.StartController">
     <children>
-        <ImageView fitHeight="720.0" fitWidth="1280.0" pickOnBounds="true" preserveRatio="true">
-            <image>
-                <Image url="@images/start%20screen.png" />
-            </image>
+
+        <!-- Background: preserveRatio=false so it always fills 1280x720 exactly -->
+        <ImageView fitHeight="720.0" fitWidth="1280.0"
+                   layoutX="0.0" layoutY="0.0"
+                   pickOnBounds="true" preserveRatio="false">
+            <image><Image url="@images/start%20screen.png" /></image>
         </ImageView>
-        <ImageView fitHeight="723.0" fitWidth="1161.0" layoutX="-219.0" layoutY="-181.0" pickOnBounds="true" preserveRatio="true" x="340.0" y="30.0">
-            <image>
-                <Image url="@images/logo.png" />
-            </image>
+
+        <!-- Logo / monsters
+             The visual content (blue monster → green monster) lives at
+             image_x = 219 … 1059 inside the 1161-px-wide image.
+             Content centre = 639.  Setting layoutX=0 places that at
+             window x = 639 ≈ 640 (the exact screen midpoint).
+             Blue monster: window x 219–350  (219 px left margin)
+             Green monster: window x 820–1059 (221 px right margin)
+             layoutY=-181 keeps the same vertical crop as the original. -->
+        <ImageView fitHeight="723.0" fitWidth="1161.0"
+                   layoutX="60.0" layoutY="-181.0"
+                   pickOnBounds="false" preserveRatio="true">
+            <image><Image url="@images/logo.png" /></image>
         </ImageView>
-        <Button layoutX="247.0" layoutY="369.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="73.0" prefWidth="286.0" style="-fx-background-color: #2E4A7A; -fx-text-fill: #FFD700; -fx-font-size: 18px; -fx-font-weight: bold; -fx-background-radius: 10; -fx-border-color: #ffd700; -fx-border-width: 2; -fx-border-radius: 10; -fx-padding: 15 40 15 40;" text="⚡ SCARER" fx:id="scarerButton" onAction="#handleScarer"/>
-        <Button layoutX="794.0" layoutY="371.0" mnemonicParsing="false" prefHeight="73.0" prefWidth="286.0" style="-fx-background-color: #7A4A1E; -fx-text-fill: #FFD700; -fx-font-size: 18px; -fx-font-weight: bold; -fx-background-radius: 10; -fx-border-color: #FFD700; -fx-border-width: 2; -fx-border-radius: 10; -fx-padding: 15 40 15 40;" text="😄 LAUGHER" fx:id="laugherButton" onAction="#handleLaugher"/>
-        <Label layoutX="555.0" layoutY="319.0" style="-fx-text-fill: #ffd700; -fx-font-size: 22px; -fx-font-weight: bold;" text="_Choose Your Side _" />
-        <Button layoutX="490.0" layoutY="487.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #1E3248; -fx-text-fill: #FFD700; -fx-font-size: 16px; -fx-font-weight: bold; -fx-background-radius: 10; -fx-border-color: #FFD700; -fx-border-width: 2; -fx-border-radius: 10; -fx-cursor: hand;" text="READ FULL INSTRUCTIONS" onAction="#handleInstructions"/>    </children>
+
+        <!-- ═══════════════════════════════════════════════════════════
+             MODE SELECTION PANEL  (visible by default)
+             Buttons at the exact same positions as the original
+             SCARER (247) and LAUGHER (794) buttons.
+             ═══════════════════════════════════════════════════════════ -->
+
+        <Label fx:id="chooseModeLabel"
+               layoutX="490.0" layoutY="320.0"
+               style="-fx-text-fill: #FFD700; -fx-font-size: 22px;
+                    -fx-font-weight: bold;"
+               text="CHOOSE YOUR MODE" />
+
+        <Button fx:id="spButton"
+                layoutX="247.0" layoutY="369.0"
+                prefHeight="73.0" prefWidth="286.0"
+                mnemonicParsing="false" onAction="#handleSinglePlayer"
+                style="-fx-background-color: #2E4A7A; -fx-text-fill: #FFD700;
+                     -fx-font-size: 18px; -fx-font-weight: bold;
+                     -fx-background-radius: 10; -fx-border-color: #FFD700;
+                     -fx-border-width: 2; -fx-border-radius: 10; -fx-cursor: hand;"
+                text="🎮  SINGLE PLAYER" />
+
+        <Button fx:id="mpButton"
+                layoutX="747.0" layoutY="369.0"
+                prefHeight="73.0" prefWidth="286.0"
+                mnemonicParsing="false" onAction="#handleMultiplayer"
+                style="-fx-background-color: #7A4A1E; -fx-text-fill: #FFD700;
+                     -fx-font-size: 18px; -fx-font-weight: bold;
+                     -fx-background-radius: 10; -fx-border-color: #FFD700;
+                     -fx-border-width: 2; -fx-border-radius: 10; -fx-cursor: hand;"
+                text="👥  MULTIPLAYER" />
+
+        <!-- ═══════════════════════════════════════════════════════════
+             SP ROLE PANEL  (hidden until SP is clicked)
+             Same absolute positions as original SCARER / LAUGHER.
+             ═══════════════════════════════════════════════════════════ -->
+
+        <Label fx:id="chooseRoleLabel"
+               layoutX="505.0" layoutY="320.0"
+               style="-fx-text-fill: #FFD700; -fx-font-size: 22px;
+                    -fx-font-weight: bold;"
+               text="CHOOSE YOUR SIDE"
+               visible="false" managed="false" />
+
+        <Button fx:id="scarerButton"
+                layoutX="247.0" layoutY="369.0"
+                prefHeight="73.0" prefWidth="286.0"
+                mnemonicParsing="false" onAction="#handleScarer"
+                style="-fx-background-color: #2E4A7A; -fx-text-fill: #FFD700;
+                     -fx-font-size: 18px; -fx-font-weight: bold;
+                     -fx-background-radius: 10; -fx-border-color: #FFD700;
+                     -fx-border-width: 2; -fx-border-radius: 10;
+                     -fx-padding: 15 40 15 40;"
+                text="⚡  SCARER"
+                visible="false" managed="false" />
+
+        <Button fx:id="laugherButton"
+                layoutX="747.0" layoutY="369.0"
+                prefHeight="73.0" prefWidth="286.0"
+                mnemonicParsing="false" onAction="#handleLaugher"
+                style="-fx-background-color: #7A4A1E; -fx-text-fill: #FFD700;
+                     -fx-font-size: 18px; -fx-font-weight: bold;
+                     -fx-background-radius: 10; -fx-border-color: #FFD700;
+                     -fx-border-width: 2; -fx-border-radius: 10;
+                     -fx-padding: 15 40 15 40;"
+                text="😄  LAUGHER"
+                visible="false" managed="false" />
+
+        <Button fx:id="backToModeBtn"
+                layoutX="545.0" layoutY="548.0"
+                prefHeight="40.0" prefWidth="190.0"
+                mnemonicParsing="false" onAction="#handleBackToMode"
+                style="-fx-background-color: transparent; -fx-text-fill: #CCCCEE;
+                     -fx-font-size: 13px; -fx-font-weight: bold;
+                     -fx-background-radius: 8; -fx-border-color: #CCCCEE;
+                     -fx-border-width: 1; -fx-border-radius: 8; -fx-cursor: hand;"
+                text="← BACK"
+                visible="false" managed="false" />
+
+        <!-- Instructions — same position as original project -->
+        <Button layoutX="490.0" layoutY="487.0"
+                mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0"
+                onAction="#handleInstructions"
+                style="-fx-background-color: #1E3248; -fx-text-fill: #FFD700;
+                     -fx-font-size: 16px; -fx-font-weight: bold;
+                     -fx-background-radius: 10; -fx-border-color: #FFD700;
+                     -fx-border-width: 2; -fx-border-radius: 10; -fx-cursor: hand;"
+                text="READ FULL INSTRUCTIONS" />
+
+    </children>
 </AnchorPane>
